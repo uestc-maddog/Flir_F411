@@ -92,6 +92,14 @@ typedef enum {
 	SLP_empty,
 } SleepCont_sta;
 
+// sleepmode conditions
+
+typedef enum {
+	Sleep_enable,
+	Sleep_disable,
+} Sleep_sta;
+
+//sleep state 
 typedef enum {
 	reticle_able = 0,
 	reticle_Hor,
@@ -100,7 +108,6 @@ typedef enum {
 	reticle_empty,
 } flir_reticle_sta;
 
-// sleepmode conditions
 
 // compassmode conditions
 
@@ -157,6 +164,8 @@ typedef struct{
  *                                               EXTERNAL VARIABLES
  ********************************************************************************************************/
 extern sysConf_t flir_conf;
+
+extern Sleep_sta sleep_sta;
  
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
@@ -261,6 +270,8 @@ void display_normal_baterry(Quan_baterry value);
 bool display_Boot_Animation(uint8_t x);
 
 void display_Animation(void);
+
+void display_sleep_charging(Quan_baterry value);
 
 
 #endif
