@@ -88,6 +88,7 @@ static void MX_ADC1_Init(void);
 #include "stm32f4xx.h"                    // Device header
 #include "stm32f4xx.h"                    // Device header
 uint8_t SleepTime_Setting = Time_Minu15;  // 默认Sleep Time
+uint8_t Charge_Flag = 0;                  // 0:表示已经退出过一次充电状态
 
 void Flir_Display(void);                 // Flir界面
 void Menu_Display(void);                 // Menu界面
@@ -105,6 +106,7 @@ int main(void)
 	
   /* Configure the system clock */
   SystemClock_Config();
+	sysConf_init();              // 系统参数初始化
 	
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
@@ -116,24 +118,21 @@ int main(void)
 	MX_TIM2_Init();           // 按键时间捕获
 	MX_TIM3_Init();           // Sleep Time      定时器TIM3已开启
 	MX_TIM9_Init();           // LCD_PWM
- //	HAL_Delay(2500);
+ 	HAL_Delay(1000);
 	
+	LCD_Init();
   lepton_init();
+	
 	display_Animation();        // 显示开机界面
+	
   init_lepton_command_interface();
   HAL_Delay(500);
   enable_lepton_agc();
 	HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_1);
 
-  /* USER CODE END 2 */
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-	sysConf_init();              // 系统参数初始化
+	
 	while (1)
   {
-  /* USER CODE END WHILE */
-
-  /* USER CODE BEGIN 3 */
 		//Flir_Display();	       // Flir界面
 
 		Key_Value = Key_Scan();                
@@ -142,23 +141,33 @@ int main(void)
 			if(Key_Value == Key_Short)           // 短按切换display mode
 			{
 				if(flir_conf.flir_sys_DisMode == color) flir_conf.flir_sys_DisMode = greyscale;
-				else                                    flir_conf.flir_sys_DisMode = color;
-//				if(flir_conf.flir_sys_DisMode) HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);		
-//				else                           HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);		
+				else                                    flir_conf.flir_sys_DisMode = color;	
 			}
 			if(Key_Value == Key_Long)            // 长按进入菜单界面
 			{
 				Menu_Display();                    // Menu界面
 			}
 		}
-		if(SleepTime_Setting == Time_Sleep)    // Sleep功能开启
+		if(SleepTime_Setting == Time_Sleep)    // Sleep Time倒计时到
 		{
-			//HAL_TIM_Base_Stop_IT(&htim3);        // Sleep时间到，关闭定时器TIM3
 			setSandby();
 		}
+		if( (flir_conf.file_sys_chargingMode == charging) && (Charge_Flag == 0) )
+		{	
+			Charge_Flag = 1;
+			while(1)
+			{
+				flir_conf.flir_sys_Baterry = Get_Elec();
+				display_sleep_charging(flir_conf.flir_sys_Baterry);               
+				if(Key_Scan() == Key_Long) 
+				{
+					//Charge_Flag = 0;
+					break;      // 长按退出充电界面
+				}
+				if(flir_conf.file_sys_chargingMode == normal) break;
+			}
+		}
   }
-  /* USER CODE END 3 */
-
 }
 
 /** System Clock Configuration
@@ -392,7 +401,7 @@ static void MX_GPIO_Init(void)
 	/*Configure GPIO pin : PA15 */
   GPIO_InitStruct.Pin = GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 	
 	/*Configure GPIO pin : Key_Mode_Pin */
@@ -402,7 +411,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 2, 0);
-  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 /* USER CODE BEGIN 4 */

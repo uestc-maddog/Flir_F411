@@ -46,6 +46,7 @@ volatile uint8_t Time_Sleep = 0;      // Sleep Time counter
  ********************************************************************************************************/
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
+extern uint8_t Charge_Flag;
  
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
@@ -204,16 +205,36 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	}
 	else if(GPIO_Pin == GPIO_PIN_15)     // 充电中断
 	{
-		if(sleep_sta == Sleep_disable)
+		if(!(GPIOA->IDR&0x8000))           // 下降沿，进入充电
 		{
-			flir_conf.file_sys_chargingMode = charging;
+			//Charge_Flag = 0;
+			if(flir_conf.file_sys_LowPower == Not_LowPower)  // 非Stop模式，进入充电模式
+			{
+				flir_conf.file_sys_chargingMode = charging;
+			}
+			else
+			{
+				flir_conf.file_sys_LowPower = Not_LowPower;       // 状态切换
+				
+				/*  SoftReset  */
+				HAL_PWREx_DisableFlashPowerDown();
+				__set_FAULTMASK(1);                               // 关闭所有中断
+				NVIC_SystemReset();                               // 软件复位
+			}
 		}
-		else
+		else                                // 上降沿，退出充电
 		{
-			// restart    ...
-			
-			
+			flir_conf.file_sys_chargingMode = normal; 
+			Charge_Flag = 0;
 		}
+//		if(sleep_sta == Sleep_disable)u
+//		{
+//			flir_conf.file_sys_chargingMode = charging;
+//		}
+//		else
+//		{
+//			// restart    ...
+//		}
 	}
 }
  /********************************************************************************************************

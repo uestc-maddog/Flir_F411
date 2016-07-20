@@ -38,6 +38,7 @@
 /********************************************************************************************************
  *                                               CONSTANTS
  ********************************************************************************************************/
+extern uint8_t Charge_Flag;
 extern volatile uint16_t rgbbuf[60][80]; 
 extern uint16_t rowBuf[FLIR_LCD_RAW][FLIR_LCD_COLUMNUM];
 // menu threshold option
@@ -630,7 +631,7 @@ void sysConf_init(void)
 	flir_conf.flir_sys_ComMode = enable;        // 默认指南针功能开启
 	
 	flir_conf.flir_sys_Baterry = Baterry_high;
-	flir_conf.file_sys_chargingMode = charging;
+	flir_conf.file_sys_chargingMode = normal; 
 	flir_conf.file_sys_LowPower = Not_LowPower;
 	
 	SET_BGLight(flir_conf.flir_sys_Bright);     // 设置亮度
@@ -769,35 +770,33 @@ bool display_Boot_UI(void)
 void display_Animation(void)
 {
 	uint8_t x;
-	KeyStatus Key_Value = Key_None;
-	if((GPIOA->IDR&0x8000) == 0x8000)
+	
+	for(x=60;x<121;x=x+3)              // 显示开机动画
 	{
+		display_Boot_Animation(x);
+	}
+	
+	if(!(GPIOA->IDR&0x8000))           // 开机后，如果处于充电状态中
+	{
+		flir_conf.file_sys_chargingMode = charging;
+		Charge_Flag = 1;
 		while(1)
 		{		
-			flir_conf.flir_sys_Baterry = Get_Elec();
-			display_sleep_charging(flir_conf.flir_sys_Baterry);
-			Key_Value = Key_Scan();                
-			if(Key_Value)
+			flir_conf.flir_sys_Baterry = Get_Elec();               // 获取当前电量 
+			display_sleep_charging(flir_conf.flir_sys_Baterry);    // 显示充电界面           
+			if(Key_Scan() == Key_Long) break;           // 长按退出充电界面
+			if((GPIOA->IDR&0x8000))                     // 拔出充电线，退出充电界面
 			{
-				if(Key_Value == Key_Long)            // 长按进入菜单界面
-				{
-					break;
-				}
+				flir_conf.file_sys_chargingMode = normal;
+				Charge_Flag = 0;
+				break;           
 			}
-//			if(SleepTime_Setting == Time_Sleep)    // Sleep功能开启
-//			{
-//				HAL_TIM_Base_Stop_IT(&htim3);        // Sleep时间到，关闭定时器TIM3
-//				setSandby();
-//			}
-		}
-		
+		}	
 	}
-	else
+	if((GPIOA->IDR&0x8000))                     // 拔出充电线，退出充电界面
 	{
-		for(x=60;x<121;x=x+3)
-		{
-			display_Boot_Animation(x);
-		}
+		flir_conf.file_sys_chargingMode = normal;
+		Charge_Flag = 0;          
 	}
 }
 /*********************************************************************
