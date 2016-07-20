@@ -102,6 +102,38 @@ Quan_baterry Get_Elec(void)
 	else                            return Baterry_empty;
 }
 
+/*********************************************************************
+ * @fn        CLOCK_OFF()
+ *
+ * @brief     关闭外设时钟，GPIOA外部中断未关
+ *						
+ *						
+ *
+ * @param     none
+ *
+ * @return    none
+ */
+void CLOCK_OFF(void)
+{
+	__HAL_RCC_GPIOB_CLK_DISABLE();
+	__HAL_RCC_GPIOC_CLK_DISABLE();
+	__HAL_RCC_GPIOH_CLK_DISABLE();
+	
+  __HAL_RCC_DMA1_CLK_DISABLE();
+	__HAL_RCC_DMA2_CLK_DISABLE();
+	
+	__HAL_RCC_ADC1_CLK_DISABLE();
+	
+	__HAL_RCC_SPI1_CLK_DISABLE();
+	__HAL_RCC_SPI2_CLK_DISABLE();
+	
+	__HAL_RCC_I2C1_CLK_DISABLE();
+	
+	__HAL_RCC_TIM2_CLK_DISABLE();
+	__HAL_RCC_TIM3_CLK_DISABLE();
+	__HAL_RCC_TIM9_CLK_DISABLE();
+}
+
 
 /*********************************************************************
  * @fn        standbyPower()
@@ -135,7 +167,7 @@ void setSandby( void )
 	HAL_GPIO_Init(LCD_POWER_GPIOX, &GPIO_InitStruct);
 	
 	// set this pin to high to stop LCD back light power
-	HAL_GPIO_WritePin(LCD_POWER_GPIOX, LCD_POWER_PIN, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LCD_POWER_GPIOX, LCD_POWER_PIN, GPIO_PIN_RESET);
 	
 	// lock this pin till next reset/power on
 	HAL_GPIO_LockPin(LCD_POWER_GPIOX, LCD_POWER_PIN);
@@ -147,6 +179,16 @@ void setSandby( void )
 	
 	// lock this pin till next reset/power on
 	HAL_GPIO_LockPin(FLIR_POWER_DWN_GPIOX, FLIR_POWER_DWN_PIN);
+	
+	
+	CLOCK_OFF();                                 // 关闭除外部唤醒中断的外设时钟
+	
+	/*To minimize the consumption In Stop mode, FLASH can be powered off before 
+      entering the Stop mode using the HAL_PWREx_EnableFlashPowerDown() function.
+      It can be switched on again by software after exiting the Stop mode using
+      the HAL_PWREx_DisableFlashPowerDown() function. */
+	HAL_PWREx_EnableFlashPowerDown();
+	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 }
 
 

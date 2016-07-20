@@ -82,7 +82,20 @@ void Baterrycheck(void);
  *
  * @return    none
  */
-void setSandby( void );
+void setSandby(void);
+
+/*********************************************************************
+ * @fn        CLOCK_OFF()
+ *
+ * @brief     关闭外设时钟
+ *						
+ *						
+ *
+ * @param     none
+ *
+ * @return    none
+ */
+void CLOCK_OFF(void);
 
 /*********************************************************************
  * @fn        resetStandby()

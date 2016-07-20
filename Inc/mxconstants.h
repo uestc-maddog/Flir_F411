@@ -45,8 +45,8 @@
 #define LEPTON_GPIO3_GPIO_Port GPIOC
 #define LCD_DC_Pin GPIO_PIN_15
 #define LCD_DC_GPIO_Port GPIOC
-#define PB_STAT_Pin GPIO_PIN_4
-#define PB_STAT_GPIO_Port GPIOA
+#define PB_STAT_Pin GPIO_PIN_0
+#define PB_STAT_GPIO_Port GPIOB
 #define SYSTEM_LED_Pin GPIO_PIN_6
 #define SYSTEM_LED_GPIO_Port GPIOA
 #define LCD_RESET_Pin GPIO_PIN_0

@@ -20,6 +20,7 @@
  ********************************************************************************************************/
 #include "stm32f4xx_hal.h"
 #include "key.h"
+#include "electricity.h"
 #include "flir_lcd.h"
 /********************************************************************************************************
  *                                                 MACROS
@@ -44,6 +45,7 @@ volatile uint8_t Time_Sleep = 0;      // Sleep Time counter
  *                                               EXTERNAL VARIABLES
  ********************************************************************************************************/
 extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
  
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
@@ -143,14 +145,32 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   static uint8_t CAPTURE_STA = 0;	   // 捕获状态
+	static uint8_t Temp = 0;	       
 	
 	/* Prevent unused argument(s) compilation warning */
 	UNUSED(GPIO_Pin);
 		/* NOTE: This function Should not be modified, when the callback is needed,
 						 the HAL_GPIO_EXTI_Callback could be implemented in the user file
 		 */
-	
-	if(GPIO_Pin == GPIO_PIN_12)        // 按键中断
+	if(GPIO_Pin == GPIO_PIN_0)           // PBSTAT中断
+	{
+		Temp++;
+		if(flir_conf.file_sys_LowPower == Not_LowPower) 
+		{
+			flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换
+			setSandby();                     // 进入低功耗模式
+		}
+		else
+		{
+			flir_conf.file_sys_LowPower = Not_LowPower;       // 状态切换
+			
+			/*  SoftReset  */
+			HAL_PWREx_DisableFlashPowerDown();
+			__set_FAULTMASK(1);                               // 关闭所有中断
+			NVIC_SystemReset();                               // 软件复位
+		}
+	}
+	if(GPIO_Pin == GPIO_PIN_12)          // 按键中断
 	{
 		GPIO_InitTypeDef GPIO_InitStruct;
 		

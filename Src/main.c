@@ -162,7 +162,7 @@ int main(void)
 		}
 		if(SleepTime_Setting == Time_Sleep)    // Sleep功能开启
 		{
-			HAL_TIM_Base_Stop_IT(&htim3);        // Sleep时间到，关闭定时器TIM3
+			//HAL_TIM_Base_Stop_IT(&htim3);        // Sleep时间到，关闭定时器TIM3
 			setSandby();
 		}
   }
@@ -319,13 +319,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct;
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOE_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_GPIOD_CLK_ENABLE();
-
+	__HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOH_CLK_ENABLE();
 
   /*Configure GPIO pins : LEPTON_GPIO3_Pin LCD_DC_Pin */
   GPIO_InitStruct.Pin = LEPTON_GPIO3_Pin|LCD_DC_Pin;
@@ -363,11 +360,7 @@ static void MX_GPIO_Init(void)
 //  GPIO_InitStruct.Pull = GPIO_NOPULL;
 //  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB_STAT_Pin */
-  GPIO_InitStruct.Pin = PB_STAT_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(PB_STAT_GPIO_Port, &GPIO_InitStruct);
+
 
   /*Configure GPIO pins : SYSTEM_LED_Pin LEPTON_PW_DWN_L_Pin LEPTON_RESET_L_Pin */
   GPIO_InitStruct.Pin = SYSTEM_LED_Pin|LEPTON_PW_DWN_L_Pin|LEPTON_RESET_L_Pin;
@@ -402,6 +395,14 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LCD_RESET_GPIO_Port, LCD_RESET_Pin, GPIO_PIN_RESET);
 	
+	/*Configure GPIO pin : PB_STAT_Pin */
+  GPIO_InitStruct.Pin = PB_STAT_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(PB_STAT_GPIO_Port, &GPIO_InitStruct);
+	/* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 1, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	
 	/*Configure GPIO pin : Key_Mode_Pin */
   GPIO_InitStruct.Pin = GPIO_PIN_12;
