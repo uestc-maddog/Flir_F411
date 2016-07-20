@@ -116,19 +116,10 @@ int main(void)
 	MX_TIM2_Init();           // 按键时间捕获
 	MX_TIM3_Init();           // Sleep Time      定时器TIM3已开启
 	MX_TIM9_Init();           // LCD_PWM
-	
-
-  /* USER CODE BEGIN 2 */
-	sysConf_init();
-  LCD_Init();  
-//	LCD_Clear(BLACK);
-//	HAL_Delay(2500);
-//	LCD_Clear(WHITE);
-//	HAL_Delay(2500);
-	display_Animation();        // 显示开机界面
+ //	HAL_Delay(2500);
 	
   lepton_init();
-  HAL_Delay(2500);
+	display_Animation();        // 显示开机界面
   init_lepton_command_interface();
   HAL_Delay(500);
   enable_lepton_agc();
@@ -354,11 +345,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 	
-//	/*Configure GPIO pin : PA2 */
-//  GPIO_InitStruct.Pin = GPIO_PIN_2;
-//  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-//  GPIO_InitStruct.Pull = GPIO_NOPULL;
-//  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 
 
@@ -403,6 +389,11 @@ static void MX_GPIO_Init(void)
 	/* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI0_IRQn, 1, 0);
   HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+	/*Configure GPIO pin : PA15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 	
 	/*Configure GPIO pin : Key_Mode_Pin */
   GPIO_InitStruct.Pin = GPIO_PIN_12;

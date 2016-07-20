@@ -28,6 +28,7 @@
 #include "flir_lcd.h"
 #include "flir_menu.h"
 #include "key.h"
+#include "electricity.h"
 
 /********************************************************************************************************
  *                                                 MACROS
@@ -587,6 +588,7 @@ FocusCont_sta      flir_focussta;
  ********************************************************************************************************/
 extern SPI_HandleTypeDef LCD_SPI_PORT;
 extern DMA_HandleTypeDef LCD_DMA_PORT;
+Sleep_sta sleep_sta = Sleep_disable;
 	
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
@@ -633,6 +635,7 @@ void sysConf_init(void)
 	
 	SET_BGLight(flir_conf.flir_sys_Bright);     // 设置亮度
 	Time_Sleep = 0;                             // 休眠定时计数器归零
+	sleep_sta = Sleep_disable;									// 休眠状态
 }
 /*********************************************************************
  * @fn      display_menu
@@ -766,9 +769,35 @@ bool display_Boot_UI(void)
 void display_Animation(void)
 {
 	uint8_t x;
-	for(x=60;x<121;x=x+3)
+	KeyStatus Key_Value = Key_None;
+	if((GPIOA->IDR&0x8000) == 0x8000)
 	{
-		display_Boot_Animation(x);
+		while(1)
+		{		
+			flir_conf.flir_sys_Baterry = Get_Elec();
+			display_sleep_charging(flir_conf.flir_sys_Baterry);
+			Key_Value = Key_Scan();                
+			if(Key_Value)
+			{
+				if(Key_Value == Key_Long)            // 长按进入菜单界面
+				{
+					break;
+				}
+			}
+//			if(SleepTime_Setting == Time_Sleep)    // Sleep功能开启
+//			{
+//				HAL_TIM_Base_Stop_IT(&htim3);        // Sleep时间到，关闭定时器TIM3
+//				setSandby();
+//			}
+		}
+		
+	}
+	else
+	{
+		for(x=60;x<121;x=x+3)
+		{
+			display_Boot_Animation(x);
+		}
 	}
 }
 /*********************************************************************

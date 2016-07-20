@@ -157,6 +157,8 @@ void setSandby( void )
 	// lock this pin till next reset/power on
 	HAL_GPIO_LockPin(POWER_STANDBY_GPIOX, POWER_STANDBY_PIN);
 	
+	//sleep state changge to enable.
+	sleep_sta = Sleep_enable;
 	
 	// configure LCD back light power
 	// re-config the LCD power pin

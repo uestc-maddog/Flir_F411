@@ -100,7 +100,12 @@ KeyStatus Key_Scan(void)
 		{
 			//Time_1ms = 0;
 			return Key_Short;        // 按键按下时间小于2s      短按 
-		}			
+		}		
+		else if(Time_1ms > Long_Thre && return_mark == false) 
+		{
+			//Time_1ms = 0;
+			return Key_Long;        // 按键按下时间da于2s        长按 
+		}		
 		else                           
 		{
 			return_mark = false;
@@ -199,7 +204,16 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	}
 	else if(GPIO_Pin == GPIO_PIN_15)     // 充电中断
 	{
-		;
+		if(sleep_sta == Sleep_disable)
+		{
+			flir_conf.file_sys_chargingMode = charging;
+		}
+		else
+		{
+			// restart    ...
+			
+			
+		}
 	}
 }
  /********************************************************************************************************
