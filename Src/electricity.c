@@ -136,9 +136,9 @@ void CLOCK_OFF(void)
 
 
 /*********************************************************************
- * @fn        standbyPower()
+ * @fn        setSandby()
  *
- * @brief     configure LTC3553-2 to standby mode,
+ * @brief     configure system to standby mode,
  *						disable LCD and flir camera.
  *						call this function before sleep.
  *

@@ -776,28 +776,28 @@ void display_Animation(void)
 		display_Boot_Animation(x);
 	}
 	
-	if(!(GPIOA->IDR&0x8000))           // 开机后，如果处于充电状态中
-	{
-		flir_conf.file_sys_chargingMode = charging;
-		Charge_Flag = 1;
-		while(1)
-		{		
-			flir_conf.flir_sys_Baterry = Get_Elec();               // 获取当前电量 
-			display_sleep_charging(flir_conf.flir_sys_Baterry);    // 显示充电界面           
-			if(Key_Scan() == Key_Long) break;           // 长按退出充电界面
-			if((GPIOA->IDR&0x8000))                     // 拔出充电线，退出充电界面
-			{
-				flir_conf.file_sys_chargingMode = normal;
-				Charge_Flag = 0;
-				break;           
-			}
-		}	
-	}
-	if((GPIOA->IDR&0x8000))                     // 拔出充电线，退出充电界面
-	{
-		flir_conf.file_sys_chargingMode = normal;
-		Charge_Flag = 0;          
-	}
+//	if(!(GPIOA->IDR&0x8000))           // 开机后，如果处于充电状态中
+//	{
+//		flir_conf.file_sys_chargingMode = charging;
+//		Charge_Flag = 1;
+//		while(1)
+//		{		
+//			flir_conf.flir_sys_Baterry = Get_Elec();               // 获取当前电量 
+//			display_sleep_charging(flir_conf.flir_sys_Baterry);    // 显示充电界面           
+//			if(Key_Scan() == Key_Long) break;           // 长按退出充电界面
+//			if((GPIOA->IDR&0x8000))                     // 拔出充电线，退出充电界面
+//			{
+//				flir_conf.file_sys_chargingMode = normal;
+//				Charge_Flag = 0;
+//				break;           
+//			}
+//		}	
+//	}
+//	if((GPIOA->IDR&0x8000))                     // 拔出充电线，退出充电界面
+//	{
+//		flir_conf.file_sys_chargingMode = normal;
+//		Charge_Flag = 0;          
+//	}
 }
 /*********************************************************************
  * @fn      display_Boot_UI

@@ -53,6 +53,8 @@ volatile bool lcdTXcpl = true; // initialize transmit complete as true
  *                                               EXTERNAL VARIABLES
  ********************************************************************************************************/
 // SPI1 handler variable, delare in main.c
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 extern SPI_HandleTypeDef LCD_SPI_PORT;
 extern DMA_HandleTypeDef LCD_DMA_PORT;
 extern bool Compass_Swit;        // 0---compass on   1---compass off
@@ -405,8 +407,12 @@ bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 		LCD_startDisplay(0, 4); // start from the 4th row, skip the black frame
 		
 		// use DMA to display a new frame
+		/* Enable the TIM Update interrupt */
+		HAL_TIM_Base_Stop_IT(&htim2);
+		HAL_TIM_Base_Stop_IT(&htim3);
 		HAL_SPI_Transmit_DMA(&LCD_SPI_PORT, (uint8_t*)rowBuf, sizeof(rowBuf));
-		
+		HAL_TIM_Base_Start_IT(&htim2);
+		HAL_TIM_Base_Start_IT(&htim3);
 		
 		// return true
 		return true;

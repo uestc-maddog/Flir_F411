@@ -118,12 +118,13 @@ int main(void)
 	MX_TIM2_Init();           // 按键时间捕获
 	MX_TIM3_Init();           // Sleep Time      定时器TIM3已开启
 	MX_TIM9_Init();           // LCD_PWM
- 	HAL_Delay(1000);
 	
+	lepton_init();
 	LCD_Init();
-  lepton_init();
-	
 	display_Animation();        // 显示开机界面
+  
+//	LCD_Clear(WHITE);
+//	HAL_Delay(1500);
 	
   init_lepton_command_interface();
   HAL_Delay(500);
@@ -133,8 +134,7 @@ int main(void)
 	
 	while (1)
   {
-		//Flir_Display();	       // Flir界面
-
+		Flir_Display();	       // Flir界面
 		Key_Value = Key_Scan();                
 		if(Key_Value)
 		{
@@ -374,8 +374,8 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pins : PB1 PB2 PB11 PB13 
                            PB14 PB15 PB3 PB4 
                            PB5 PB6 PB7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_11|GPIO_PIN_13 
-                          |GPIO_PIN_14|GPIO_PIN_15|GPIO_PIN_3|GPIO_PIN_4 
+  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_11 
+                          |GPIO_PIN_3|GPIO_PIN_4 
                           |GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
