@@ -182,7 +182,7 @@ void setSandby( void )
 	// lock this pin till next reset/power on
 	HAL_GPIO_LockPin(FLIR_POWER_DWN_GPIOX, FLIR_POWER_DWN_PIN);
 	
-	
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
 	CLOCK_OFF();                                 // 关闭除外部唤醒中断的外设时钟
 	
 	/*To minimize the consumption In Stop mode, FLASH can be powered off before 
