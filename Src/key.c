@@ -207,7 +207,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	{
 		if(!(GPIOA->IDR&0x8000))           // 下降沿，进入充电
 		{
-			//Charge_Flag = 0;
 			if(flir_conf.file_sys_LowPower == Not_LowPower)  // 非Stop模式，进入充电模式
 			{
 				flir_conf.file_sys_chargingMode = charging;
@@ -215,7 +214,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			else
 			{
 				flir_conf.file_sys_LowPower = Not_LowPower;       // 状态切换
-				
+
 				/*  SoftReset  */
 				HAL_PWREx_DisableFlashPowerDown();
 				__set_FAULTMASK(1);                               // 关闭所有中断

@@ -50,7 +50,7 @@
 extern ADC_HandleTypeDef hadc1;
 
 volatile Quan_baterry temp;
-uint8_t baterrychackcounter=0;    //一个电量检测计数器。
+uint8_t baterrychackcounter=0;    // 电量检测计数器。
 extern 	KeyStatus Key_Value;
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
@@ -115,6 +115,35 @@ Quan_baterry Get_Elec(void)
  */
 void CLOCK_OFF(void)
 {
+	GPIO_InitTypeDef GPIO_InitStruct;
+	
+//	GPIOA->ODR &= 0x0fc8f;
+//	GPIOB->ODR &= 0x0ffbf;
+//	GPIOC->ODR &= 0x1fff;
+	
+	GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_7| GPIO_PIN_8| GPIO_PIN_9;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_7| GPIO_PIN_8| GPIO_PIN_9, GPIO_PIN_RESET);
+	
+	GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_12| GPIO_PIN_13| GPIO_PIN_14| GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_12| GPIO_PIN_13| GPIO_PIN_14| GPIO_PIN_15, GPIO_PIN_RESET);
+	
+	GPIO_InitStruct.Pin = GPIO_PIN_13| GPIO_PIN_14| GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13| GPIO_PIN_14| GPIO_PIN_15, GPIO_PIN_RESET);
+	
+	
 	__HAL_RCC_GPIOB_CLK_DISABLE();
 	__HAL_RCC_GPIOC_CLK_DISABLE();
 	__HAL_RCC_GPIOH_CLK_DISABLE();
@@ -168,6 +197,8 @@ void setSandby( void )
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(LCD_POWER_GPIOX, &GPIO_InitStruct);
 	
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);   // LDO OFF
+	
 	// set this pin to high to stop LCD back light power
 	HAL_GPIO_WritePin(LCD_POWER_GPIOX, LCD_POWER_PIN, GPIO_PIN_RESET);
 	
@@ -182,7 +213,6 @@ void setSandby( void )
 	// lock this pin till next reset/power on
 	HAL_GPIO_LockPin(FLIR_POWER_DWN_GPIOX, FLIR_POWER_DWN_PIN);
 	
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
 	CLOCK_OFF();                                 // 关闭除外部唤醒中断的外设时钟
 	
 	/*To minimize the consumption In Stop mode, FLASH can be powered off before 

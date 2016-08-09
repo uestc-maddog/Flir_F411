@@ -61,8 +61,8 @@
 
 /* Control related*/
 //LCD_RST
-#define SPILCD_RST_SET		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET)  //PB0 
-#define SPILCD_RST_RESET	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET)//PB0 
+#define SPILCD_RST_SET		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_14, GPIO_PIN_SET)  //PC14 
+#define SPILCD_RST_RESET	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_14, GPIO_PIN_RESET)//PC14 
 
 //LCD_RS//dc  
 #define SPILCD_RS_SET			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_15, GPIO_PIN_SET)  //PC15
@@ -75,7 +75,7 @@
 #endif
 
 //LCD REST    
-#define	LCD_REST PBout(0) 			
+#define	LCD_REST PCout(14) 			
 
 /* Color define */
 #define WHITE				0xFFFF
