@@ -395,9 +395,8 @@ bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 			Add_focusing(flir_conf.flir_sys_Reticle);                         // add focusing lines data
 		if(flir_conf.flir_sys_ComMode == enable)
 		{
+			Angle = angle;
 			Add_compass(Angle);                     // add compass data         偏移temp行
-			Angle += 1;
-			if(Angle == 360) Angle = 0;
 		}
 
 		Addbaterry_menu(flir_conf.file_sys_chargingMode,flir_conf.flir_sys_Baterry);          //添加电池图标。

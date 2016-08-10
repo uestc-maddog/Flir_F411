@@ -11,6 +11,7 @@
 #include "electricity.h"
 #include "key.h"
 #include "menufounction.h"
+#include "flir_compass.h"
 #include "stmflash.h"
 /* USER CODE END Includes */
 
@@ -52,22 +53,25 @@ static void MX_ADC1_Init(void);
 uint8_t SleepTime_Setting = Time_Minu15;  // 默认Sleep Time
 uint8_t Charge_Flag = 0;                  // 0:表示已经退出过一次充电状态,充电线已拔出
 
+float testcompass = 0;  //测试电子罗盘
+
 void Flir_Display(void);                 // Flir界面
 void Menu_Display(void);                 // Menu界面
 
 int main(void)
 {
-	KeyStatus Key_Value = Key_None;
-	
+
+  /* USER CODE BEGIN 1 */
+ 	KeyStatus Key_Value = Key_None;
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
   /* Configure the system clock */
   SystemClock_Config();        // 外部+PLL  26MHz
   /* Initialize all configured peripherals */
+	setSandby2();
   MX_GPIO_Init();
   MX_DMA_Init();
 	MX_ADC1_Init();
-  MX_I2C1_Init();
   MX_SPI2_Init();
   MX_SPI1_Init();
 	MX_TIM2_Init();           // 按键时间捕获
@@ -75,15 +79,22 @@ int main(void)
 	MX_TIM9_Init();           // LCD_PWM
 	
 	lepton_init();
+	MX_I2C1_Init();
 	
 	sysConf_init();              // 系统参数初始化
 	LCD_Init();
 	display_Animation();         // 显示开机界面
+  
+//	LCD_Clear(WHITE);
+	//HAL_Delay(1500);
 
   init_lepton_command_interface();
   HAL_Delay(500);
   enable_lepton_agc();
 	HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_1);
+	
+//	Init_HMC5883L();
+	
 
 	while (1)
   {
@@ -241,6 +252,12 @@ static void MX_DMA_Init(void)
   __HAL_RCC_DMA1_CLK_ENABLE();
 
   /* DMA interrupt init */
+	/* DMA1_Stream0_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
+  /* DMA1_Stream1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream1_IRQn);
   /* DMA1_Stream3_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Stream3_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream3_IRQn);
