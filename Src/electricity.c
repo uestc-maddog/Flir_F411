@@ -219,7 +219,7 @@ void setSandby( void )
       entering the Stop mode using the HAL_PWREx_EnableFlashPowerDown() function.
       It can be switched on again by software after exiting the Stop mode using
       the HAL_PWREx_DisableFlashPowerDown() function. */
-	HAL_PWREx_EnableFlashPowerDown();
+	//HAL_PWREx_EnableFlashPowerDown();
 	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 }
 
