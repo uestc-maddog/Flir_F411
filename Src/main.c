@@ -11,6 +11,7 @@
 #include "electricity.h"
 #include "key.h"
 #include "menufounction.h"
+#include "stmflash.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -53,13 +54,11 @@ uint8_t Charge_Flag = 0;                  // 0:表示已经退出过一次充电状态,充电线
 
 void Flir_Display(void);                 // Flir界面
 void Menu_Display(void);                 // Menu界面
-/* USER CODE END 0 */
 
 int main(void)
 {
-
-  /* USER CODE BEGIN 1 */
 	KeyStatus Key_Value = Key_None;
+	
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
   /* Configure the system clock */
@@ -80,10 +79,7 @@ int main(void)
 	sysConf_init();              // 系统参数初始化
 	LCD_Init();
 	display_Animation();         // 显示开机界面
-  
-//	LCD_Clear(WHITE);
-//	HAL_Delay(1500);
-	
+
   init_lepton_command_interface();
   HAL_Delay(500);
   enable_lepton_agc();
@@ -91,39 +87,37 @@ int main(void)
 
 	while (1)
   {
-		Flir_Display();	                       // Flir界面
+		// 显示Flir界面
+		Flir_Display();	                       
+		
+		// 扫描按键
 		Key_Value = Key_Scan();                
 		if(Key_Value)
 		{
 			if(Key_Value == Key_Short)           // 短按切换display mode
 			{
-				if(flir_conf.flir_sys_DisMode == color) flir_conf.flir_sys_DisMode = greyscale;
-				else                                    flir_conf.flir_sys_DisMode = color;	
+				if(flir_conf.flir_sys_DisMode == color) 
+				{
+					flir_conf.flir_sys_DisMode = greyscale;
+					Save_Parameter();                           // 保存8个系统参数到FLASH
+				}
+				else                                    
+				{
+					flir_conf.flir_sys_DisMode = color;	
+					Save_Parameter();                           // 保存8个系统参数到FLASH
+				}
 			}
 			if(Key_Value == Key_Long)            // 长按进入菜单界面
 			{
 				Menu_Display();                    // Menu界面
 			}
 		}
-		if(SleepTime_Setting == Time_Sleep)    // Sleep Time倒计时到
+		
+		// Sleep Time倒计时到
+		if(SleepTime_Setting == Time_Sleep)    
 		{
 			setSandby();
 		}
-//		if( (flir_conf.file_sys_chargingMode == charging) && (Charge_Flag == 0) )
-//		{	
-//			Charge_Flag = 1;  
-//			while(1)
-//			{
-//				flir_conf.flir_sys_Baterry = Get_Elec();
-//				display_sleep_charging(flir_conf.flir_sys_Baterry);               
-//				if(Key_Scan() == Key_Long) 
-//				{
-//					//Charge_Flag = 0;
-//					break;                         // 长按退出充电界面
-//				}
-//				if(flir_conf.file_sys_chargingMode == normal) break;      // 拔出充电线退出
-//			}
-//		}
   }
 }
 
@@ -540,16 +534,21 @@ void Menu_Display(void)
 						display_menu(Menu_Value);
 						break;
 					case (int)Reset:
-						sysConf_init();
-						//HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);		
+						sysConf_Reset();
 						display_menu(Menu_Value);
 						timer = 200;                          // timer=200时，退出菜单界面
 						break;
 					case (int)Compass:
-						if(flir_conf.flir_sys_ComMode == enable) flir_conf.flir_sys_ComMode = disable;  // 切换compass开关状态
-						else                                     flir_conf.flir_sys_ComMode = enable;
-//						if(flir_conf.flir_sys_ComMode) HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);		
-//						else             					     HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);	
+						if(flir_conf.flir_sys_ComMode == enable) 
+						{
+							flir_conf.flir_sys_ComMode = disable;  // 切换compass开关状态
+							Save_Parameter();                           // 保存8个系统参数到FLASH
+						}
+						else                                     
+						{
+							flir_conf.flir_sys_ComMode = enable;
+							Save_Parameter();                           // 保存8个系统参数到FLASH
+						}
 						display_menu(Menu_Value);
 						timer = 200;                          // timer=200时，退出菜单界面
 						break;

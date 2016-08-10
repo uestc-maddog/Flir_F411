@@ -266,7 +266,17 @@ bool display_Check(uint8_t Offset);
  * @return  
  */
 void sysConf_init(void);
-
+/*********************************************************************
+ * @fn      sysConf_Reset
+ *
+ * @brief   reset system configuration
+ *
+ * @param   none
+ *
+ * @return  
+ */
+void sysConf_Reset(void);
+void Save_Parameter(void);                           // 保存8个系统参数到FLASH
 void Addbaterry_menu(Baterrymode mode,Quan_baterry value);
 
 bool display_charging(Quan_baterry value);

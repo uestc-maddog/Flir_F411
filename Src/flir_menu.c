@@ -29,6 +29,7 @@
 #include "flir_menu.h"
 #include "key.h"
 #include "electricity.h"
+#include "stmflash.h"
 
 /********************************************************************************************************
  *                                                 MACROS
@@ -620,19 +621,96 @@ static uint8_t screenSet[SCREEN_SET_BUFSIZE] = {0};
  */
 void sysConf_init(void)
 {
-	// init system configuration
+	uint32_t temp = 0; 
+	uint32_t datatemp[PARA_NUMS];        // 系统参数缓存
+	
+	STMFLASH_Read(PARA_SAVE_ADDR,&temp,1);    // 读出1个数据
+	if(temp != 0x45)     // 参数还未保存到FLASH
+	{
+		// init system configuration
+		flir_conf.flir_sys_Bright = Level3;         // 默认亮度等级   Level3
+		flir_conf.flir_sys_Sleep  = Minutes_15;     // 默认Sleep Time Minutes_15
+		
+		flir_conf.flir_sys_Focus = focus_enable;    // 默认对焦准心开启
+		flir_conf.flir_sys_Reticle[0] = 0;          // Reticle X轴偏移    短轴
+		flir_conf.flir_sys_Reticle[1] = 0;          // Reticle Y轴偏移    长轴
+		
+		flir_conf.flir_sys_DisMode = color;         // 默认摄像头数据彩色显示
+		flir_conf.flir_sys_ComMode = enable;        // 默认指南针功能开启
+		
+		Save_Parameter();                           // 保存8个系统参数到FLASH
+	}
+	else
+	{
+		STMFLASH_Read(PARA_SAVE_ADDR+1,(uint32_t*)datatemp,PARA_NUMS-1);   // 读出7个系统参数
+
+		// init system configuration
+		flir_conf.flir_sys_Bright = (BrightnessCont_sta)(datatemp[0]>>24);     // 亮度等级   
+		flir_conf.flir_sys_Sleep  = (SleepCont_sta)(datatemp[1]>>24);         // Sleep Time 
+		
+		flir_conf.flir_sys_Focus = (FocusCont_sta)(datatemp[2]>>24);          // 对焦准心是否开启
+		flir_conf.flir_sys_Reticle[0] = (int)((int)((datatemp[3])>>24)-50);   // Reticle X轴偏移    短轴
+		flir_conf.flir_sys_Reticle[1] = (int)((int)((datatemp[4])>>24)-50);   // Reticle Y轴偏移    长轴
+		
+		flir_conf.flir_sys_DisMode = (DisplayMode_sta)(datatemp[5]>>24);      // 摄像头数据显示模式（彩色/黑白）
+		flir_conf.flir_sys_ComMode = (CompassMode_sta)(datatemp[6]>>24);      // 指南针功能是否开启
+	}
+	flir_conf.flir_sys_Baterry = Baterry_high;
+	flir_conf.file_sys_chargingMode = normal; 
+	flir_conf.file_sys_LowPower = Not_LowPower;
+	
+	SET_BGLight(flir_conf.flir_sys_Bright);     // 设置亮度
+	Time_Sleep = 0;                             // 休眠定时计数器归零
+	sleep_sta = Sleep_disable;									// 休眠状态
+}
+
+void Save_Parameter(void)                     // 保存8个系统参数到FLASH
+{
+	uint32_t datatemp[PARA_NUMS];        // 系统参数缓存
+	
+	datatemp[0] = (uint32_t)0x45;
+	datatemp[1] = (uint32_t)flir_conf.flir_sys_Bright;
+	datatemp[2] = (uint32_t)flir_conf.flir_sys_Sleep;
+	datatemp[3] = (uint32_t)flir_conf.flir_sys_Focus;
+	datatemp[4] = (uint32_t)(flir_conf.flir_sys_Reticle[0]+50);
+	datatemp[5] = (uint32_t)(flir_conf.flir_sys_Reticle[1]+50);
+	datatemp[6] = (uint32_t)flir_conf.flir_sys_DisMode;
+	datatemp[7] = (uint32_t)flir_conf.flir_sys_ComMode;
+	
+//	datatemp[0] = (uint32_t)0x15;
+//	datatemp[1] = (uint32_t)0x25;
+//	datatemp[2] = (uint32_t)0x35;
+//	datatemp[3] = (uint32_t)0x45;
+//	datatemp[4] = (uint32_t)0x55;
+//	datatemp[5] = (uint32_t)0x65;
+//	datatemp[6] = (uint32_t)0x75;
+//	datatemp[7] = (uint32_t)0x85;
+	
+	STMFLASH_Write(PARA_SAVE_ADDR,(uint32_t *)datatemp,PARA_NUMS);                      // 保存参数
+}
+/*********************************************************************
+ * @fn      sysConf_Reset
+ *
+ * @brief   reset system configuration
+ *
+ * @param   none
+ *
+ * @return  
+ */
+void sysConf_Reset(void)
+{
+	// reset system configuration
 	flir_conf.flir_sys_Bright = Level3;         // 默认亮度等级   Level3
 	flir_conf.flir_sys_Sleep  = Minutes_15;     // 默认Sleep Time Minutes_15
 	
 	flir_conf.flir_sys_Focus = focus_enable;    // 默认对焦准心开启
 	flir_conf.flir_sys_Reticle[0] = 0;          // Reticle X轴偏移    短轴
 	flir_conf.flir_sys_Reticle[1] = 0;          // Reticle Y轴偏移    长轴
+	
 	flir_conf.flir_sys_DisMode = color;         // 默认摄像头数据彩色显示
 	flir_conf.flir_sys_ComMode = enable;        // 默认指南针功能开启
 	
-	flir_conf.flir_sys_Baterry = Baterry_high;
-	flir_conf.file_sys_chargingMode = normal; 
-	flir_conf.file_sys_LowPower = Not_LowPower;
+	Save_Parameter();                           // 保存8个系统参数到FLASH
 	
 	SET_BGLight(flir_conf.flir_sys_Bright);     // 设置亮度
 	Time_Sleep = 0;                             // 休眠定时计数器归零
@@ -764,8 +842,6 @@ bool display_Boot_UI(void)
 		HAL_DMA_PollForTransfer(&LCD_DMA_PORT,HAL_DMA_FULL_TRANSFER,1);		
 	}
 }	
-
-
 
 void display_Animation(void)
 {
