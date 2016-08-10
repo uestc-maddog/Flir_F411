@@ -67,6 +67,7 @@ void  Init_HMC5883L();
 void read_hmc5883l(void);
 
 float hmc_measure();
+extern float angle;
 
 
 #endif

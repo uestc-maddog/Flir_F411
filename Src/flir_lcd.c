@@ -395,7 +395,7 @@ bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 			Add_focusing(flir_conf.flir_sys_Reticle);                         // add focusing lines data
 		if(flir_conf.flir_sys_ComMode == enable)
 		{
-	//		Angle = hmc_measure();
+			Angle = angle;
 			Add_compass(Angle);                     // add compass data         偏移temp行
 		}
 

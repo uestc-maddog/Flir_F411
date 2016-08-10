@@ -179,7 +179,7 @@ LEP_RESULT DEV_I2C_MasterReadData(LEP_UINT16  portID,               // User-defi
 
     *(LEP_UINT16*)txdata = REVERSE_ENDIENESS_UINT16(regAddress);
 
-    hal_status = HAL_I2C_Mem_Read(&hi2c1, deviceAddress << 1, regAddress, I2C_MEMADD_SIZE_16BIT, txrxdata, bytesToRead, COMM_TIMEOUT_MS);
+    hal_status = HAL_I2C_Mem_Read(&hi2c1, deviceAddress << 1, regAddress, I2C_MEMADD_SIZE_16BIT, txrxdata, bytesToRead,COMM_TIMEOUT_MS);
     if (hal_status != HAL_OK) {
         DEBUG_PRINTF("DEV_I2C_MasterReadData::HAL_I2C_Mem_Read\r\n\t(deviceAddress=0x%02x, regAddress=0x%04x, bytesToRead=%d) failed: %d\r\n", deviceAddress, regAddress, bytesToRead, hal_status);
         goto finish_DEV_I2C_MasterReadData;
@@ -232,7 +232,7 @@ LEP_RESULT DEV_I2C_MasterWriteData(LEP_UINT16  portID,              // User-defi
         dataPtr++;
     }
 
-    hal_status = HAL_I2C_Master_Transmit(&hi2c1, deviceAddress << 1, txrxdata, bytesToWrite, COMM_TIMEOUT_MS);
+    hal_status = HAL_I2C_Master_Transmit(&hi2c1, deviceAddress << 1, txrxdata, bytesToWrite,COMM_TIMEOUT_MS);
     if (hal_status != HAL_OK) {
         DEBUG_PRINTF("DEV_I2C_MasterWriteData::HAL_I2C_Master_Transmit failed: %d\r\n", hal_status);
         goto finish_DEV_I2C_MasterWriteData;

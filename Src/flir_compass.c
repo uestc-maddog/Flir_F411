@@ -32,7 +32,7 @@
 //#include "font.h"  
 
 #define	HMC5883L_Addr   0x3C	//磁场传感器器件地址
-#define COMM_TIMEOUT_MS             (10)
+#define COMM_TIMEOUT_MS             (1)
 
 unsigned char BUF[8];                         //接收数据缓存区 
 unsigned char sendBUF[8];                         //send数据缓存区 
@@ -153,17 +153,17 @@ void read_hmc5883l(void)
 {
 		sendBUF[0] = 0x14;
     HAL_I2C_Mem_Write(&hi2c1,HMC5883L_Addr,0x00,I2C_MEMADD_SIZE_8BIT,sendBUF,1,COMM_TIMEOUT_MS);  
-		sendBUF[0] = 0x00;
-		HAL_I2C_Mem_Write(&hi2c1,HMC5883L_Addr,0x02,I2C_MEMADD_SIZE_8BIT,sendBUF,1,COMM_TIMEOUT_MS);
-		HAL_Delay(10);
+		sendBUF[1] = 0x00;
+		HAL_I2C_Mem_Write(&hi2c1,HMC5883L_Addr,0x02,I2C_MEMADD_SIZE_8BIT,&sendBUF[1],1,COMM_TIMEOUT_MS);
+	//	HAL_Delay(5);
 
 	
-		HAL_I2C_Mem_Read(&hi2c1,HMC5883L_Addr,0x03,I2C_MEMADD_SIZE_8BIT,&BUF[1],1,COMM_TIMEOUT_MS);
-		HAL_I2C_Mem_Read(&hi2c1,HMC5883L_Addr,0x04,I2C_MEMADD_SIZE_8BIT,&BUF[2],1,COMM_TIMEOUT_MS);
-		HAL_I2C_Mem_Read(&hi2c1,HMC5883L_Addr,0x05,I2C_MEMADD_SIZE_8BIT,&BUF[3],1,COMM_TIMEOUT_MS);
-		HAL_I2C_Mem_Read(&hi2c1,HMC5883L_Addr,0x06,I2C_MEMADD_SIZE_8BIT,&BUF[4],1,COMM_TIMEOUT_MS);
-		HAL_I2C_Mem_Read(&hi2c1,HMC5883L_Addr,0x07,I2C_MEMADD_SIZE_8BIT,&BUF[5],1,COMM_TIMEOUT_MS);
-		HAL_I2C_Mem_Read(&hi2c1,HMC5883L_Addr,0x08,I2C_MEMADD_SIZE_8BIT,&BUF[6],1,COMM_TIMEOUT_MS);
+			HAL_I2C_Mem_Read(&hi2c1,HMC5883L_Addr,0x03,I2C_MEMADD_SIZE_8BIT,&BUF[1],6,COMM_TIMEOUT_MS);
+//		HAL_I2C_Mem_Read(&hi2c1,HMC5883L_Addr,0x04,I2C_MEMADD_SIZE_8BIT,&BUF[2],1,COMM_TIMEOUT_MS);
+//		HAL_I2C_Mem_Read(&hi2c1,HMC5883L_Addr,0x05,I2C_MEMADD_SIZE_8BIT,&BUF[3],1,COMM_TIMEOUT_MS);
+//		HAL_I2C_Mem_Read(&hi2c1,HMC5883L_Addr,0x06,I2C_MEMADD_SIZE_8BIT,&BUF[4],1,COMM_TIMEOUT_MS);
+//		HAL_I2C_Mem_Read(&hi2c1,HMC5883L_Addr,0x07,I2C_MEMADD_SIZE_8BIT,&BUF[5],1,COMM_TIMEOUT_MS);
+//		HAL_I2C_Mem_Read(&hi2c1,HMC5883L_Addr,0x08,I2C_MEMADD_SIZE_8BIT,&BUF[6],1,COMM_TIMEOUT_MS);
 
        x=(BUF[1] << 8) | BUF[2]; //Combine MSB and LSB of X Data output register
        z=(BUF[3] << 8) | BUF[4]; //Combine MSB and LSB of Z Data output register
@@ -190,12 +190,8 @@ float hmc_measure()
 {
 	float a=0;
   uint8_t k;
-	for(k=0;k<3;k++)
-	{
 	read_hmc5883l();
-	a=a+angle;
-	}
-	a=a/3;
+	a=angle;
 	return a;
 }
 
