@@ -223,6 +223,50 @@ void setSandby( void )
 	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 }
 
+/*********************************************************************
+ * @fn        setSandby()
+ *
+ * @brief     configure system to standby mode,
+ *						disable LCD and flir camera.
+ *						call this function before sleep.
+ *
+ * @param     none
+ *
+ * @return    none
+ */
+void setSandby2( void )
+{
+	GPIO_InitTypeDef GPIO_InitStruct;
+	
+	// configure power standby pin 
+	// driven high this pin to enable low power
+	HAL_GPIO_WritePin(POWER_STANDBY_GPIOX, POWER_STANDBY_PIN, GPIO_PIN_SET);
+	
+
+	
+	// configure LCD back light power
+	// re-config the LCD power pin
+	GPIO_InitStruct.Pin = LCD_POWER_PIN;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+	HAL_GPIO_Init(LCD_POWER_GPIOX, &GPIO_InitStruct);
+	
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);   // LDO OFF
+	
+	// set this pin to high to stop LCD back light power
+	HAL_GPIO_WritePin(LCD_POWER_GPIOX, LCD_POWER_PIN, GPIO_PIN_RESET);
+	
+	
+	
+	// congifure flir camera sleep
+	// enable flir power down pin to disable flir camera
+	HAL_GPIO_WritePin(FLIR_POWER_DWN_GPIOX, FLIR_POWER_DWN_PIN, GPIO_PIN_RESET);	// logic-low enable, shutdown sequence
+	
+
+	
+}
+
 
 /*********************************************************************
  * @fn        resetStandby()
