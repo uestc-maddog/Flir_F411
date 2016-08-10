@@ -53,7 +53,7 @@ static void MX_ADC1_Init(void);
 uint8_t SleepTime_Setting = Time_Minu15;  // 默认Sleep Time
 uint8_t Charge_Flag = 0;                  // 0:表示已经退出过一次充电状态,充电线已拔出
 
-float testcompass = 0;  //测试电子罗盘
+uint8_t baterry_test = 0;  //测试电子罗盘
 
 void Flir_Display(void);                 // Flir界面
 void Menu_Display(void);                 // Menu界面
@@ -524,6 +524,7 @@ void Menu_Display(void)
 			if(Key_Value == Key_Short)        // 短按切换菜单栏
 			{
 				if(++Menu_Value == empty) Menu_Value = Brightness;
+				if(Menu_Value == Compass) Menu_Value = Exit;
 				display_menu(Menu_Value);
 			}
 			if(Key_Value == Key_Long)
@@ -615,7 +616,13 @@ void Flir_Display(void)
 	{
 		if(xfer_state != LEPTON_XFER_STATE_DATA)
 		HAL_Delay(1);
-	}		
+	}	
+	baterry_test ++ ;	
+	if(baterry_test == 10)
+	{
+		baterry_test = 0;
+		flir_conf.flir_sys_Baterry = Get_Elec();
+	}
 }
 /* USER CODE END 4 */
 

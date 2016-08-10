@@ -95,11 +95,14 @@ Quan_baterry Get_Elec(void)
 		}
 		HAL_ADC_Stop(&hadc1);
 	}
-	ADC_Temp = (float)(ADC_Temp * 3.30f / 0x0FFF / Sample_Times);
-	if(ADC_Temp > Elec_Thre1)      return Baterry_high;
-	else if(ADC_Temp > Elec_Thre2) return Baterry_middle;
-	else if(ADC_Temp > Elec_Thre3) return Baterry_low;
-	else                            return Baterry_empty;
+	ADC_Temp = (float)(ADC_Temp * 3.44f / 0x0FFF / Sample_Times);
+
+	if(ADC_Temp > Elec_Thre1)      return Baterry_full;
+	else if(ADC_Temp > Elec_Thre2) return Baterry_high;
+	else if(ADC_Temp > Elec_Thre3) return Baterry_middle;
+	else if(ADC_Temp > Elec_Thre4) return Baterry_low;
+	else if(ADC_Temp > Elec_Thre5) return Baterry_empty;
+	else  																setSandby();
 }
 
 /*********************************************************************
