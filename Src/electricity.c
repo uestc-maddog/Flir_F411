@@ -143,6 +143,15 @@ void CLOCK_OFF(void)
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13| GPIO_PIN_14| GPIO_PIN_15, GPIO_PIN_RESET);
 	
+//		/*Configure GPIO pin : PB_STAT_Pin */
+//  GPIO_InitStruct.Pin = PB_STAT_Pin;
+//  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  HAL_GPIO_Init(PB_STAT_GPIO_Port, &GPIO_InitStruct);
+//	/* EXTI interrupt init*/
+//  HAL_NVIC_SetPriority(EXTI0_IRQn, 1, 0);
+//  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+	
 	
 	__HAL_RCC_GPIOB_CLK_DISABLE();
 	__HAL_RCC_GPIOC_CLK_DISABLE();
@@ -177,41 +186,41 @@ void CLOCK_OFF(void)
  */
 void setSandby( void )
 {
-	GPIO_InitTypeDef GPIO_InitStruct;
-	
-	// configure power standby pin 
-	// driven high this pin to enable low power
-	HAL_GPIO_WritePin(POWER_STANDBY_GPIOX, POWER_STANDBY_PIN, GPIO_PIN_SET);
-	
-	// lock this pin till next reset/power on
-	HAL_GPIO_LockPin(POWER_STANDBY_GPIOX, POWER_STANDBY_PIN);
+//	GPIO_InitTypeDef GPIO_InitStruct;
+//	
+//	// configure power standby pin 
+//	// driven high this pin to enable low power
+//	HAL_GPIO_WritePin(POWER_STANDBY_GPIOX, POWER_STANDBY_PIN, GPIO_PIN_SET);
+//	
+//	// lock this pin till next reset/power on
+//	HAL_GPIO_LockPin(POWER_STANDBY_GPIOX, POWER_STANDBY_PIN);
 	
 	//sleep state changge to enable.
 	sleep_sta = Sleep_enable;
 	
-	// configure LCD back light power
-	// re-config the LCD power pin
-	GPIO_InitStruct.Pin = LCD_POWER_PIN;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-	HAL_GPIO_Init(LCD_POWER_GPIOX, &GPIO_InitStruct);
-	
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);   // LDO OFF
-	
-	// set this pin to high to stop LCD back light power
-	HAL_GPIO_WritePin(LCD_POWER_GPIOX, LCD_POWER_PIN, GPIO_PIN_RESET);
-	
-	// lock this pin till next reset/power on
-	HAL_GPIO_LockPin(LCD_POWER_GPIOX, LCD_POWER_PIN);
-	
-	
-	// congifure flir camera sleep
-	// enable flir power down pin to disable flir camera
-	HAL_GPIO_WritePin(FLIR_POWER_DWN_GPIOX, FLIR_POWER_DWN_PIN, GPIO_PIN_RESET);	// logic-low enable, shutdown sequence
-	
-	// lock this pin till next reset/power on
-	HAL_GPIO_LockPin(FLIR_POWER_DWN_GPIOX, FLIR_POWER_DWN_PIN);
+//	// configure LCD back light power
+//	// re-config the LCD power pin
+//	GPIO_InitStruct.Pin = LCD_POWER_PIN;
+//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+//	HAL_GPIO_Init(LCD_POWER_GPIOX, &GPIO_InitStruct);
+//	
+//	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);   // LDO OFF
+//	
+//	// set this pin to high to stop LCD back light power
+//	HAL_GPIO_WritePin(LCD_POWER_GPIOX, LCD_POWER_PIN, GPIO_PIN_RESET);
+//	
+//	// lock this pin till next reset/power on
+//	HAL_GPIO_LockPin(LCD_POWER_GPIOX, LCD_POWER_PIN);
+//	
+//	
+//	// congifure flir camera sleep
+//	// enable flir power down pin to disable flir camera
+//	HAL_GPIO_WritePin(FLIR_POWER_DWN_GPIOX, FLIR_POWER_DWN_PIN, GPIO_PIN_RESET);	// logic-low enable, shutdown sequence
+//	
+//	// lock this pin till next reset/power on
+//	HAL_GPIO_LockPin(FLIR_POWER_DWN_GPIOX, FLIR_POWER_DWN_PIN);
 	
 	CLOCK_OFF();                                 // 关闭除外部唤醒中断的外设时钟
 	
