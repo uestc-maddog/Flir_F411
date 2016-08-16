@@ -23,9 +23,9 @@ bool set_reticle_mark=false;
 **/
 void Brightnesschosen(void)
 {
-	static BrightnessCont_sta Brightness_Old_sta = Level1;
+	//static BrightnessCont_sta Brightness_Old_sta = Level1;
+	BrightnessCont_sta BGL_value = flir_conf.flir_sys_Bright;
 	
-	BrightnessCont_sta BGL_value = Brightness_Old_sta;
 	KeyStatus Key_Value = Key_None;
 	uint8_t timer = 0;
 
@@ -51,7 +51,7 @@ void Brightnesschosen(void)
 								SET_BGLight(Level1);
 								flir_conf.flir_sys_Bright = Level1;
 								//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
-								Brightness_Old_sta = Level1;
+								//Brightness_Old_sta = Level1;
 								display_Check(OP1_2_TH);
 								break;
 							case (int)Level2:
@@ -59,13 +59,13 @@ void Brightnesschosen(void)
 								SET_BGLight(Level2);
 								flir_conf.flir_sys_Bright = Level2;
 								//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
-								Brightness_Old_sta = Level2;
+								//Brightness_Old_sta = Level2;
 								display_Check(OP2_2_TH);
 								break;
 							case (int)Level3:
 								// 添加用户代码
 								SET_BGLight(Level3);
-								Brightness_Old_sta = Level3;
+								//Brightness_Old_sta = Level3;
 								flir_conf.flir_sys_Bright = Level3;
 								//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 								display_Check(OP3_2_TH);
@@ -73,7 +73,7 @@ void Brightnesschosen(void)
 							case (int)Level4:
 								// 添加用户代码
 								SET_BGLight(Level4);
-								Brightness_Old_sta = Level4;
+								//Brightness_Old_sta = Level4;
 								flir_conf.flir_sys_Bright = Level4;
 								//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 								display_Check(OP4_2_TH);
@@ -101,9 +101,9 @@ void Brightnesschosen(void)
 **/
 void Sleepchosen(void)
 {
-	static SleepCont_sta Sleep_Old_sta = Minutes_3;
+	//static SleepCont_sta Sleep_Old_sta = Minutes_3;
 	
-	SleepCont_sta SLP_value = Sleep_Old_sta;
+	SleepCont_sta SLP_value = flir_conf.flir_sys_Sleep;
 	KeyStatus Key_Value = Key_None;
 	uint8_t timer = 0;
 
@@ -127,48 +127,54 @@ void Sleepchosen(void)
 					case (int)Minutes_3:
 						// 添加用户代码
 						Time_Sleep = 0;
+						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3
 						SleepTime_Setting = Time_Minu3;
-						flir_conf.flir_sys_Sleep = Time_Minu3;
-						//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
-						Sleep_Old_sta = Minutes_3;           // 保存设置状态
+						flir_conf.flir_sys_Sleep = Minutes_3;
+						//Sleep_Old_sta = Minutes_3;           // 保存设置状态
 						display_Check(OP1_2_TH);
 						break;
 					case (int)Minutes_5:
 						// 添加用户代码
 						Time_Sleep = 0;
+						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3
 						SleepTime_Setting = Time_Minu5;
-						flir_conf.flir_sys_Sleep = Time_Minu5;
-						//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
-						Sleep_Old_sta = Minutes_5;           // 保存设置状态
+						flir_conf.flir_sys_Sleep = Minutes_5;
+						//Sleep_Old_sta = Minutes_5;           // 保存设置状态
 						display_Check(OP2_2_TH);
 						break;
 					case (int)Minutes_10:
 						// 添加用户代码
 						Time_Sleep = 0;
+						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3
 						SleepTime_Setting = Time_Minu10;
-						flir_conf.flir_sys_Sleep = Time_Minu10;
-						//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
-						Sleep_Old_sta = Minutes_10;          // 保存设置状态
+						flir_conf.flir_sys_Sleep = Minutes_10;
+						//Sleep_Old_sta = Minutes_10;          // 保存设置状态
 						display_Check(OP3_2_TH);
 						break;
 					case (int)Minutes_15:
 						// 添加用户代码
 						Time_Sleep = 0;
+						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3
 						SleepTime_Setting = Time_Minu15;
-						flir_conf.flir_sys_Sleep = Time_Minu15;
-						//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
-						Sleep_Old_sta = Minutes_15;          // 保存设置状态
+						flir_conf.flir_sys_Sleep = Minutes_15;
+						//Sleep_Old_sta = Minutes_15;          // 保存设置状态
 						display_Check(OP4_2_TH);
 						break;
-
+					case (int)Minutes_NA:
+						// 添加用户代码
+						Time_Sleep = 0;
+						HAL_TIM_Base_Stop_IT(&htim3);         // 关闭定时器TIM3
+						flir_conf.flir_sys_Sleep = Minutes_NA;
+						//Sleep_Old_sta = Minutes_NA;           // 保存设置状态
+						display_Check(OP5_2_TH);
+						break;
 					case (int)SLP_Exit:
 						timer = 200;                         // timer=200时，退出菜单界面
 						break;
 				}
-				//HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);   // 添加 长按按键代码
 			}									
 		}
-		if(timer++ == 200)                            // 超过10s无按键响应，则退出菜单界面
+		if(timer++ == 200)                           // 超过10s无按键响应，则退出菜单界面
 		{
 			timer = 0;
 			break;                      

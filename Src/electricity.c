@@ -194,46 +194,16 @@ void CLOCK_OFF(void)
  */
 void setSandby( void )
 {
-//	GPIO_InitTypeDef GPIO_InitStruct;
-//	
-//	// configure power standby pin 
-//	// driven high this pin to enable low power
-//	HAL_GPIO_WritePin(POWER_STANDBY_GPIOX, POWER_STANDBY_PIN, GPIO_PIN_SET);
-//	
-//	// lock this pin till next reset/power on
-//	HAL_GPIO_LockPin(POWER_STANDBY_GPIOX, POWER_STANDBY_PIN);
-	
 	//sleep state changge to enable.
 	sleep_sta = Sleep_enable;
 	Save_Parameter();                           // 保存8个系统参数到FLASH
+	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
 	if(low_power == false)
-	display_Byebye();
+		display_Byebye();
 	else
-	display_PowerOff();	
+		display_PowerOff();	
 	HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);
-//	// configure LCD back light power
-//	// re-config the LCD power pin
-//	GPIO_InitStruct.Pin = LCD_POWER_PIN;
-//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-//  GPIO_InitStruct.Pull = GPIO_NOPULL;
-//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-//	HAL_GPIO_Init(LCD_POWER_GPIOX, &GPIO_InitStruct);
-//	
-//	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);   // LDO OFF
-//	
-//	// set this pin to high to stop LCD back light power
-//	HAL_GPIO_WritePin(LCD_POWER_GPIOX, LCD_POWER_PIN, GPIO_PIN_RESET);
-//	
-//	// lock this pin till next reset/power on
-//	HAL_GPIO_LockPin(LCD_POWER_GPIOX, LCD_POWER_PIN);
-//	
-//	
-//	// congifure flir camera sleep
-//	// enable flir power down pin to disable flir camera
-//	HAL_GPIO_WritePin(FLIR_POWER_DWN_GPIOX, FLIR_POWER_DWN_PIN, GPIO_PIN_RESET);	// logic-low enable, shutdown sequence
-//	
-//	// lock this pin till next reset/power on
-//	HAL_GPIO_LockPin(FLIR_POWER_DWN_GPIOX, FLIR_POWER_DWN_PIN);
 	
 	CLOCK_OFF();                                 // 关闭除外部唤醒中断的外设时钟
 	
@@ -241,7 +211,9 @@ void setSandby( void )
       entering the Stop mode using the HAL_PWREx_EnableFlashPowerDown() function.
       It can be switched on again by software after exiting the Stop mode using
       the HAL_PWREx_DisableFlashPowerDown() function. */
-	//HAL_PWREx_EnableFlashPowerDown();
+	HAL_PWREx_EnableFlashPowerDown();
+	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 }
 

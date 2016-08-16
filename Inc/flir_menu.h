@@ -53,7 +53,7 @@
 
 #define MENU_CONTENT	     7
 #define BRIGHTNESS_CONTENT 5
-#define SLEEP_CONTENT      5
+#define SLEEP_CONTENT      6
 #define CH_CONTENT         4
 #define CH1_TH		114
 #define CH1_2_TH	88
@@ -93,6 +93,7 @@ typedef enum {
 	Minutes_5,
 	Minutes_10,
 	Minutes_15,
+	Minutes_NA,
 	SLP_Exit,
 	SLP_empty,
 } SleepCont_sta;
@@ -100,8 +101,8 @@ typedef enum {
 // sleepmode conditions
 
 typedef enum {
-	Sleep_enable,
-	Sleep_disable,
+	Sleep_enable,       // Sleep
+	Sleep_disable,      // Run
 } Sleep_sta;
 
 //sleep state 

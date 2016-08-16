@@ -71,6 +71,7 @@ int main(void)
   SystemClock_Config();        // 外部+PLL  26MHz
   /* Initialize all configured peripherals */
 	setSandby2();
+	
   MX_GPIO_Init();
   MX_DMA_Init();
 	MX_ADC1_Init();
@@ -114,12 +115,10 @@ int main(void)
 				if(flir_conf.flir_sys_DisMode == color) 
 				{
 					flir_conf.flir_sys_DisMode = greyscale;
-					//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 				}
 				else                                    
 				{
 					flir_conf.flir_sys_DisMode = color;	
-					//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 				}
 			}
 			if(Key_Value == Key_Long)            // 长按进入菜单界面
@@ -339,7 +338,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(PB_STAT_GPIO_Port, &GPIO_InitStruct);
 	/* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI0_IRQn, 1, 0);
-  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+  //HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	/*Configure GPIO pin : PA15 */
   GPIO_InitStruct.Pin = GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
@@ -353,7 +352,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 2, 0);
-	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+	//HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 	
 	GPIO_InitStruct.Pin = GPIO_PIN_6;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -437,7 +436,6 @@ static void MX_TIM3_Init(void)
   {
     Error_Handler();
   }
-	HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3
 }
 
 /* TIM9 init function */
@@ -564,12 +562,10 @@ void Menu_Display(void)
 						if(flir_conf.flir_sys_ComMode == enable) 
 						{
 							flir_conf.flir_sys_ComMode = disable;  // 切换compass开关状态
-							//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 						}
 						else                                     
 						{
 							flir_conf.flir_sys_ComMode = enable;
-							//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 						}
 						display_menu(Menu_Value);
 						timer = 200;                          // timer=200时，退出菜单界面
