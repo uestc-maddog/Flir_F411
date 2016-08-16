@@ -50,7 +50,7 @@ void Brightnesschosen(void)
 								// 添加用户代码
 								SET_BGLight(Level1);
 								flir_conf.flir_sys_Bright = Level1;
-								Save_Parameter();                           // 保存8个系统参数到FLASH
+								//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 								Brightness_Old_sta = Level1;
 								display_Check(OP1_2_TH);
 								break;
@@ -58,7 +58,7 @@ void Brightnesschosen(void)
 								// 添加用户代码
 								SET_BGLight(Level2);
 								flir_conf.flir_sys_Bright = Level2;
-								Save_Parameter();                           // 保存8个系统参数到FLASH
+								//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 								Brightness_Old_sta = Level2;
 								display_Check(OP2_2_TH);
 								break;
@@ -67,7 +67,7 @@ void Brightnesschosen(void)
 								SET_BGLight(Level3);
 								Brightness_Old_sta = Level3;
 								flir_conf.flir_sys_Bright = Level3;
-								Save_Parameter();                           // 保存8个系统参数到FLASH
+								//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 								display_Check(OP3_2_TH);
 								break;
 							case (int)Level4:
@@ -75,7 +75,7 @@ void Brightnesschosen(void)
 								SET_BGLight(Level4);
 								Brightness_Old_sta = Level4;
 								flir_conf.flir_sys_Bright = Level4;
-								Save_Parameter();                           // 保存8个系统参数到FLASH
+								//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 								display_Check(OP4_2_TH);
 								break;
 
@@ -129,7 +129,7 @@ void Sleepchosen(void)
 						Time_Sleep = 0;
 						SleepTime_Setting = Time_Minu3;
 						flir_conf.flir_sys_Sleep = Time_Minu3;
-						Save_Parameter();                           // 保存8个系统参数到FLASH
+						//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 						Sleep_Old_sta = Minutes_3;           // 保存设置状态
 						display_Check(OP1_2_TH);
 						break;
@@ -138,7 +138,7 @@ void Sleepchosen(void)
 						Time_Sleep = 0;
 						SleepTime_Setting = Time_Minu5;
 						flir_conf.flir_sys_Sleep = Time_Minu5;
-						Save_Parameter();                           // 保存8个系统参数到FLASH
+						//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 						Sleep_Old_sta = Minutes_5;           // 保存设置状态
 						display_Check(OP2_2_TH);
 						break;
@@ -147,7 +147,7 @@ void Sleepchosen(void)
 						Time_Sleep = 0;
 						SleepTime_Setting = Time_Minu10;
 						flir_conf.flir_sys_Sleep = Time_Minu10;
-						Save_Parameter();                           // 保存8个系统参数到FLASH
+						//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 						Sleep_Old_sta = Minutes_10;          // 保存设置状态
 						display_Check(OP3_2_TH);
 						break;
@@ -156,7 +156,7 @@ void Sleepchosen(void)
 						Time_Sleep = 0;
 						SleepTime_Setting = Time_Minu15;
 						flir_conf.flir_sys_Sleep = Time_Minu15;
-						Save_Parameter();                           // 保存8个系统参数到FLASH
+						//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 						Sleep_Old_sta = Minutes_15;          // 保存设置状态
 						display_Check(OP4_2_TH);
 						break;
@@ -224,12 +224,12 @@ void set_reticle(void)
 						if(flir_conf.flir_sys_Focus == focus_enable) 
 						{
 							flir_conf.flir_sys_Focus = focus_disable;                     // focus开关状态反转
-							Save_Parameter();                           // 保存8个系统参数到FLASH
+							//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 						}
 						else                                         
 						{
 							flir_conf.flir_sys_Focus = focus_enable;	                    // focus开关状态反转
-							Save_Parameter();                           // 保存8个系统参数到FLASH
+							//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 						}							
 					break;
 					case reticle_Hor:

@@ -23,6 +23,8 @@ I2C_HandleTypeDef hi2c1;
 ADC_HandleTypeDef hadc1;
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi2;
+DMA_HandleTypeDef hdma_i2c1_rx;
+DMA_HandleTypeDef hdma_i2c1_tx;
 DMA_HandleTypeDef hdma_spi1_tx;
 DMA_HandleTypeDef hdma_spi2_rx;
 DMA_HandleTypeDef hdma_spi2_tx;
@@ -110,12 +112,12 @@ int main(void)
 				if(flir_conf.flir_sys_DisMode == color) 
 				{
 					flir_conf.flir_sys_DisMode = greyscale;
-					Save_Parameter();                           // 保存8个系统参数到FLASH
+					//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 				}
 				else                                    
 				{
 					flir_conf.flir_sys_DisMode = color;	
-					Save_Parameter();                           // 保存8个系统参数到FLASH
+					//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 				}
 			}
 			if(Key_Value == Key_Long)            // 长按进入菜单界面
@@ -560,12 +562,12 @@ void Menu_Display(void)
 						if(flir_conf.flir_sys_ComMode == enable) 
 						{
 							flir_conf.flir_sys_ComMode = disable;  // 切换compass开关状态
-							Save_Parameter();                           // 保存8个系统参数到FLASH
+							//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 						}
 						else                                     
 						{
 							flir_conf.flir_sys_ComMode = enable;
-							Save_Parameter();                           // 保存8个系统参数到FLASH
+							//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 						}
 						display_menu(Menu_Value);
 						timer = 200;                          // timer=200时，退出菜单界面

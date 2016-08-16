@@ -52,6 +52,7 @@ extern ADC_HandleTypeDef hadc1;
 volatile Quan_baterry temp;
 uint8_t baterrychackcounter=0;    // 电量检测计数器。
 extern 	KeyStatus Key_Value;
+bool low_power = false;
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
  ********************************************************************************************************/
@@ -102,7 +103,11 @@ Quan_baterry Get_Elec(void)
 	else if(ADC_Temp > Elec_Thre3) return Baterry_middle;
 	else if(ADC_Temp > Elec_Thre4) return Baterry_low;
 	else if(ADC_Temp > Elec_Thre5) return Baterry_empty;
-	else  																setSandby();
+	else  																
+	{
+		low_power = true;
+		setSandby();
+	}
 }
 
 /*********************************************************************
@@ -184,7 +189,7 @@ void CLOCK_OFF(void)
  *						call this function before sleep.
  *
  * @param     none
- *
+ * 
  * @return    none
  */
 void setSandby( void )
@@ -200,7 +205,12 @@ void setSandby( void )
 	
 	//sleep state changge to enable.
 	sleep_sta = Sleep_enable;
-	
+	Save_Parameter();                           // 保存8个系统参数到FLASH
+	if(low_power == false)
+	display_Byebye();
+	else
+	display_PowerOff();	
+	HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);
 //	// configure LCD back light power
 //	// re-config the LCD power pin
 //	GPIO_InitStruct.Pin = LCD_POWER_PIN;

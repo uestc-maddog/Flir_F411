@@ -257,6 +257,28 @@ bool display_Versionmenu(void);
 bool display_Check(uint8_t Offset);
 
 /*********************************************************************
+ * @fn      display_PowerOff
+ *
+ * @brief   display low power off
+ *
+ * @param   none
+ *
+ * @return  
+ */
+bool display_PowerOff(void);
+
+/*********************************************************************
+ * @fn      display_Byebye
+ *
+ * @brief   关机界面 
+ *
+ * @param   none
+ *
+ * @return  
+ */
+bool display_Byebye(void);
+
+/*********************************************************************
  * @fn      sysConf_init
  *
  * @brief   init system configuration
