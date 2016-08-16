@@ -765,7 +765,7 @@ I (../Inc/flir_menu.h)(0x57A9BD80)
 I (C:\My Program\MDK518\ARM\ARMCC\include\stdbool.h)(0x569DEA3A)
 I (C:\My Program\MDK518\ARM\ARMCC\include\math.h)(0x569DEA3A)
 I (../Inc/sys.h)(0x575E2B45)
-F (../Src/main.c)(0x57A9BE72)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\main.o --omf_browse f411v2\main.crf --depend f411v2\main.d)
+F (../Src/main.c)(0x57B28829)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\main.o --omf_browse f411v2\main.crf --depend f411v2\main.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x575160F2)
 I (../Inc/stm32f4xx_hal_conf.h)(0x57839402)
 I (../Inc/mxconstants.h)(0x579B047E)
@@ -814,11 +814,12 @@ I (C:\My Program\MDK518\ARM\ARMCC\include\string.h)(0x569DEA3A)
 I (../Inc/flir_menu.h)(0x57A9BD80)
 I (C:\My Program\MDK518\ARM\ARMCC\include\math.h)(0x569DEA3A)
 I (../Inc/sys.h)(0x575E2B45)
-I (../Inc/electricity.h)(0x578F1642)
+I (../Inc/electricity.h)(0x57AB01C7)
 I (../Inc/key.h)(0x578F1642)
 I (../Inc/menufounction.h)(0x57875935)
+I (../Inc/flir_compass.h)(0x57AB01C7)
 I (../Inc/stmflash.h)(0x57A9BF3A)
-F (../Src/stm32f4xx_hal_msp.c)(0x579092A8)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\stm32f4xx_hal_msp.o --omf_browse f411v2\stm32f4xx_hal_msp.crf --depend f411v2\stm32f4xx_hal_msp.d)
+F (../Src/stm32f4xx_hal_msp.c)(0x57AB01C7)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\stm32f4xx_hal_msp.o --omf_browse f411v2\stm32f4xx_hal_msp.crf --depend f411v2\stm32f4xx_hal_msp.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x575160F2)
 I (../Inc/stm32f4xx_hal_conf.h)(0x57839402)
 I (../Inc/mxconstants.h)(0x579B047E)
@@ -854,7 +855,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h)(0x575160F3)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x575160F3)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x575160F3)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x575160F3)
-F (..\Src\electricity.c)(0x57AAF13F)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\electricity.o --omf_browse f411v2\electricity.crf --depend f411v2\electricity.d)
+F (..\Src\electricity.c)(0x57AB01C7)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\electricity.o --omf_browse f411v2\electricity.crf --depend f411v2\electricity.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x575160F2)
 I (../Inc/stm32f4xx_hal_conf.h)(0x57839402)
 I (../Inc/mxconstants.h)(0x579B047E)
@@ -890,13 +891,13 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h)(0x575160F3)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x575160F3)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x575160F3)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x575160F3)
-I (../Inc/electricity.h)(0x578F1642)
+I (../Inc/electricity.h)(0x57AB01C7)
 I (../Inc/flir_menu.h)(0x57A9BD80)
 I (C:\My Program\MDK518\ARM\ARMCC\include\string.h)(0x569DEA3A)
 I (C:\My Program\MDK518\ARM\ARMCC\include\stdbool.h)(0x569DEA3A)
 I (C:\My Program\MDK518\ARM\ARMCC\include\math.h)(0x569DEA3A)
 I (../Inc/key.h)(0x578F1642)
-F (..\Src\flir_compass.c)(0x578859D7)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\flir_compass.o --omf_browse f411v2\flir_compass.crf --depend f411v2\flir_compass.d)
+F (..\Src\flir_compass.c)(0x57AB01C7)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\flir_compass.o --omf_browse f411v2\flir_compass.crf --depend f411v2\flir_compass.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x575160F2)
 I (../Inc/stm32f4xx_hal_conf.h)(0x57839402)
 I (../Inc/mxconstants.h)(0x579B047E)
@@ -935,7 +936,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x575160F3)
 I (C:\My Program\MDK518\ARM\ARMCC\include\string.h)(0x569DEA3A)
 I (C:\My Program\MDK518\ARM\ARMCC\include\stdbool.h)(0x569DEA3A)
 I (C:\My Program\MDK518\ARM\ARMCC\include\math.h)(0x569DEA3A)
-I (../Inc/flir_compass.h)(0x5786242F)
+I (../Inc/flir_compass.h)(0x57AB01C7)
 I (../Inc/flir_lcd.h)(0x579B040D)
 I (C:\My Program\MDK518\ARM\ARMCC\include\stdlib.h)(0x569DEA3A)
 I (../Inc/flir_menu.h)(0x57A9BD80)
@@ -988,7 +989,7 @@ I (C:\My Program\MDK518\ARM\ARMCC\include\math.h)(0x569DEA3A)
 I (../Inc/sys.h)(0x575E2B45)
 I (..\lepton\Inc\lepton.h)(0x578301EC)
 I (..\lepton\Inc\project_config.h)(0x571BDDE6)
-F (..\Src\flir_lcd.c)(0x57902E83)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\flir_lcd.o --omf_browse f411v2\flir_lcd.crf --depend f411v2\flir_lcd.d)
+F (..\Src\flir_lcd.c)(0x57AB01C7)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\flir_lcd.o --omf_browse f411v2\flir_lcd.crf --depend f411v2\flir_lcd.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x575160F2)
 I (../Inc/stm32f4xx_hal_conf.h)(0x57839402)
 I (../Inc/mxconstants.h)(0x579B047E)
@@ -1032,10 +1033,10 @@ I (../Inc/flir_menu.h)(0x57A9BD80)
 I (C:\My Program\MDK518\ARM\ARMCC\include\stdbool.h)(0x569DEA3A)
 I (../Inc/sys.h)(0x575E2B45)
 I (../Inc/flir_focusing.h)(0x57885038)
-I (../Inc/flir_compass.h)(0x5786242F)
-I (../Inc/electricity.h)(0x578F1642)
+I (../Inc/flir_compass.h)(0x57AB01C7)
+I (../Inc/electricity.h)(0x57AB01C7)
 I (../Inc/menufounction.h)(0x57875935)
-F (..\Src\flir_menu.c)(0x57AA8F39)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\flir_menu.o --omf_browse f411v2\flir_menu.crf --depend f411v2\flir_menu.d)
+F (..\Src\flir_menu.c)(0x57B28862)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\flir_menu.o --omf_browse f411v2\flir_menu.crf --depend f411v2\flir_menu.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x575160F2)
 I (../Inc/stm32f4xx_hal_conf.h)(0x57839402)
 I (../Inc/mxconstants.h)(0x579B047E)
@@ -1079,7 +1080,7 @@ I (../Inc/flir_menu.h)(0x57A9BD80)
 I (C:\My Program\MDK518\ARM\ARMCC\include\math.h)(0x569DEA3A)
 I (../Inc/sys.h)(0x575E2B45)
 I (../Inc/key.h)(0x578F1642)
-I (../Inc/electricity.h)(0x578F1642)
+I (../Inc/electricity.h)(0x57AB01C7)
 I (../Inc/stmflash.h)(0x57A9BF3A)
 F (..\Src\key.c)(0x57A9C5E3)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\key.o --omf_browse f411v2\key.crf --depend f411v2\key.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x575160F2)
@@ -1118,7 +1119,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x575160F3)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x575160F3)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x575160F3)
 I (../Inc/key.h)(0x578F1642)
-I (../Inc/electricity.h)(0x578F1642)
+I (../Inc/electricity.h)(0x57AB01C7)
 I (../Inc/flir_menu.h)(0x57A9BD80)
 I (C:\My Program\MDK518\ARM\ARMCC\include\string.h)(0x569DEA3A)
 I (C:\My Program\MDK518\ARM\ARMCC\include\stdbool.h)(0x569DEA3A)
@@ -1176,9 +1177,9 @@ I (..\lepton\Inc\lepton_i2c.h)(0x57A99BA7)
 I (..\lepton_sdk\Inc\LEPTON_ErrorCodes.h)(0x571B0AF6)
 I (..\lepton_sdk\Inc\LEPTON_VID.h)(0x571B0AF6)
 I (..\lepton_sdk\Inc\LEPTON_Types.h)(0x571B0AF6)
-I (../Inc/flir_compass.h)(0x5786242F)
+I (../Inc/flir_compass.h)(0x57AB01C7)
 I (../Inc/flir_focusing.h)(0x57885038)
-I (../Inc/electricity.h)(0x578F1642)
+I (../Inc/electricity.h)(0x57AB01C7)
 I (../Inc/key.h)(0x578F1642)
 I (../Inc/stmflash.h)(0x57A9BF3A)
 F (..\lepton\Src\lepton.c)(0x578DBC84)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\lepton.o --omf_browse f411v2\lepton.crf --depend f411v2\lepton.d)
@@ -1428,7 +1429,7 @@ I (..\lepton_sdk\Inc\LEPTON_SDKConfig.h)(0x571B0AF6)
 I (..\lepton_sdk\Inc\LEPTON_I2C_Protocol.h)(0x571B0AF6)
 I (..\lepton_sdk\Inc\LEPTON_I2C_Service.h)(0x571B0AF6)
 I (..\lepton_sdk\Inc\LEPTON_VID.h)(0x571B0AF6)
-F (..\lepton_sdk\Src\stm32_i2c.c)(0x571B0AF6)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\stm32_i2c.o --omf_browse f411v2\stm32_i2c.crf --depend f411v2\stm32_i2c.d)
+F (..\lepton_sdk\Src\stm32_i2c.c)(0x57AB01C7)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Include -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ..\lepton\Inc -I ..\lepton_sdk\Inc --C99-I "C:\Github Project\Flir_F411\MDK-ARM\RTE"-I "C:\My Program\MDK518\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include"-I "C:\My Program\MDK518\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="518" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE -DFLIR_PROJ --C99-o f411v2\stm32_i2c.o --omf_browse f411v2\stm32_i2c.crf --depend f411v2\stm32_i2c.d)
 I (..\lepton_sdk\Inc\LEPTON_Types.h)(0x571B0AF6)
 I (C:\My Program\MDK518\ARM\ARMCC\include\stdlib.h)(0x569DEA3A)
 I (C:\My Program\MDK518\ARM\ARMCC\include\stdbool.h)(0x569DEA3A)
