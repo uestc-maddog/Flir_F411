@@ -897,7 +897,7 @@ void sysConf_Reset(void)
 	flir_conf.flir_sys_Reticle[1] = 0;          // Reticle Y轴偏移    长轴
 	
 	flir_conf.flir_sys_DisMode = color;         // 默认摄像头数据彩色显示
-	flir_conf.flir_sys_ComMode = enable;        // 默认指南针功能开启
+	flir_conf.flir_sys_ComMode = disable;        // 默认指南针功能开启
 	
 	//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 	

@@ -87,8 +87,10 @@ int main(void)
 	LCD_Init();
 	display_Animation();         // 显示开机界面
   
+//	HAL_Delay(1000);HAL_Delay(1000);
 //	LCD_Clear(WHITE);
-	//HAL_Delay(1500);
+//	HAL_Delay(1000);
+//	while(1) ;
 
   init_lepton_command_interface();
   HAL_Delay(500);
