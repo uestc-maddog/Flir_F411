@@ -926,6 +926,7 @@ void sysConf_Reset(void)
 	sleep_sta = Sleep_disable;									// 开机状态
 	
 	Time_Sleep = 0;                             // 休眠定时计数器归零
+	SleepTime_Setting = Time_Minu15;            // 默认Sleep Time
 	HAL_TIM_Base_Stop_IT(&htim3);               // 关闭定时器TIM3
 }
 /*********************************************************************
@@ -1057,12 +1058,9 @@ bool display_Boot_UI(void)
 
 void display_Animation(void)
 {
-	uint8_t x;
-	for(x=60;x<121;x=x+3)              // 显示开机动画
-	{
-		display_Boot_Animation(x);
-	}
+	uint8_t x, timer = 0;
 	
+	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 	if(!(GPIOA->IDR&0x8000))           // 开机后，如果处于充电状态中
 	{
 		flir_conf.file_sys_chargingMode = charging;
@@ -1075,12 +1073,28 @@ void display_Animation(void)
 			if((GPIOA->IDR&0x8000))                     // 拔出充电线，退出充电界面
 			{
 				flir_conf.file_sys_chargingMode = normal;
-				Charge_Flag = 0;				         
+				Charge_Flag = 0;	
+				flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换				
+				setSandby();
+				break; 
+			}
+			HAL_Delay(10);
+			if(++timer == 30)     
+			{
+				flir_conf.file_sys_chargingMode = normal;
+				Charge_Flag = 0;	
+				flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换				
 				setSandby();
 				break; 
 			}
 		}	
 	}
+	
+	for(x=60;x<121;x=x+3)              // 显示开机动画
+	{
+		display_Boot_Animation(x);
+	}
+	
 	if((GPIOA->IDR&0x8000))                     // 拔出充电线，退出充电界面
 	{
 		flir_conf.file_sys_chargingMode = normal;
@@ -1088,7 +1102,6 @@ void display_Animation(void)
 	}
 	
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 /*********************************************************************
  * @fn      display_Boot_UI
@@ -1577,20 +1590,25 @@ void Addbaterry_menu(Baterrymode mode,Quan_baterry value)
 void display_sleep_charging(Quan_baterry value)
 {
 	if(value == Baterry_full)
+	{
 		display_charging(Baterry_high);
+		HAL_Delay(400);
+		display_charging(Baterry_middle);
+		HAL_Delay(400);
+	}
 	else if(value == Baterry_empty)
 	{
 		display_charging(Baterry_empty);
-		HAL_Delay(600);
+		HAL_Delay(400);
 		display_charging(Baterry_low);
-		HAL_Delay(600);
+		HAL_Delay(400);
 	}
 	else
 	{
 		display_charging(value+1);
-		HAL_Delay(600);
+		HAL_Delay(400);
 		display_charging(value);
-		HAL_Delay(600);
+		HAL_Delay(400);
 	}
 }
 

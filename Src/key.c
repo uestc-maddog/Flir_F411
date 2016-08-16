@@ -216,7 +216,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				flir_conf.file_sys_LowPower = Not_LowPower;       // 状态切换
 
 				/*  SoftReset  */
-				//HAL_PWREx_DisableFlashPowerDown();
+				HAL_PWREx_DisableFlashPowerDown();
 				__set_FAULTMASK(1);                               // 关闭所有中断
 				NVIC_SystemReset();                               // 软件复位
 			}

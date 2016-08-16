@@ -55,10 +55,10 @@ static void MX_ADC1_Init(void);
 uint8_t SleepTime_Setting = Time_Minu15;  // 默认Sleep Time
 uint8_t Charge_Flag = 0;                  // 0:表示已经退出过一次充电状态,充电线已拔出
 
-uint8_t baterry_test = 0;  //测试电子罗盘
+uint8_t baterry_test = 0;                 // 测试电子罗盘
 
-void Flir_Display(void);                 // Flir界面
-void Menu_Display(void);                 // Menu界面
+void Flir_Display(void);                  // Flir界面
+void Menu_Display(void);                  // Menu界面
 
 int main(void)
 {
@@ -130,6 +130,7 @@ int main(void)
 		// Sleep Time倒计时到
 		if(SleepTime_Setting == Time_Sleep)    
 		{
+			flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换
 			setSandby();
 		}
   }
@@ -417,7 +418,7 @@ static void MX_TIM3_Init(void)
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 25999;                   // 6s中断
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 11999;
+  htim3.Init.Period = 5999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
   {
