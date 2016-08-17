@@ -1559,7 +1559,12 @@ void Addbaterry_menu(Baterrymode mode,Quan_baterry value)
 	else if(mode == charging)  //if the mode id equal to charging .the icon is flashing
 	{
 		if(value == Baterry_full)
+		{
+			if(mk > 15)
 			display_charging(Baterry_high);
+			else
+			display_normal_baterry(Baterry_middle);		
+		}
 		else if(value == Baterry_empty)
 		{
 			if(mk > 15)
@@ -1592,9 +1597,15 @@ void display_sleep_charging(Quan_baterry value)
 	if(value == Baterry_full)
 	{
 		display_charging(Baterry_high);
+<<<<<<< HEAD
 		HAL_Delay(400);
 		display_charging(Baterry_middle);
 		HAL_Delay(400);
+=======
+		HAL_Delay(600);
+		display_charging(Baterry_middle);
+		HAL_Delay(600);
+>>>>>>> origin/master
 	}
 	else if(value == Baterry_empty)
 	{

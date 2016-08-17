@@ -399,7 +399,7 @@ bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 			Add_compass(Angle);                     // add compass data         偏移temp行
 		}
 
-		Addbaterry_menu(flir_conf.file_sys_chargingMode,flir_conf.flir_sys_Baterry);          //添加电池图标。
+		//Addbaterry_menu(flir_conf.file_sys_chargingMode,flir_conf.flir_sys_Baterry);          //添加电池图标。
 	
 		// if previous transmit finish, transmit new frame
 		// set the start cursor first
