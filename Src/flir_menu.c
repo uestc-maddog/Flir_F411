@@ -859,26 +859,27 @@ void sysConf_init(void)
 	sleep_sta = Sleep_disable;									// 开机状态
 	
 	Time_Sleep = 0;                             // 休眠定时计数器归零
-	switch( (int)(flir_conf.flir_sys_Sleep) )
+	switch((int)flir_conf.flir_sys_Sleep)
 	{
 		case (int)Minutes_NA:
-			HAL_TIM_Base_Stop_IT(&htim3);        // 关闭定时器TIM3
+			//HAL_TIM_Base_Stop_IT(&htim3);        // 关闭定时器TIM3中断
+			SleepTime_Setting = Time_Minu15;       // Time_Sleep != Time_Sleep,则系统永不关机
 			break;
 		case (int)Minutes_3:
-			HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3
-			SleepTime_Setting = Minutes_3;
+			HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
+			SleepTime_Setting = Time_Minu3;
 			break;
 		case (int)Minutes_5:
-			HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3
-			SleepTime_Setting = Minutes_5;
+			HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
+			SleepTime_Setting = Time_Minu5;
 			break;
 		case (int)Minutes_10:
-			HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3
-			SleepTime_Setting = Minutes_10;
+			HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
+			SleepTime_Setting = Time_Minu10;
 			break;
 		case (int)Minutes_15:
-			HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3
-			SleepTime_Setting = Minutes_15;
+			HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
+			SleepTime_Setting = Time_Minu15;
 			break;
 		default :
 			break;

@@ -52,8 +52,8 @@ static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_ADC1_Init(void);
 
-uint8_t SleepTime_Setting = Time_Minu15;  // 默认Sleep Time
-uint8_t Charge_Flag = 0;                  // 0:表示已经退出过一次充电状态,充电线已拔出
+volatile uint8_t SleepTime_Setting = Time_Minu15;  // 默认Sleep Time
+uint8_t Charge_Flag = 0;                           // 0:表示已经退出过一次充电状态,充电线已拔出
 
 uint8_t baterry_test = 0;                 // 测试电子罗盘
 
@@ -87,20 +87,12 @@ int main(void)
 	sysConf_init();              // 系统参数初始化
 	LCD_Init();
 	display_Animation();         // 显示开机界面
-  
-//	HAL_Delay(1000);HAL_Delay(1000);
-//	LCD_Clear(WHITE);
-//	HAL_Delay(1000);
-//	while(1) ;
 
   init_lepton_command_interface();
   HAL_Delay(500);
   enable_lepton_agc();
 	HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_1);
 	
-//	Init_HMC5883L();
-	
-
 	while (1)
   {
 		// 显示Flir界面
@@ -128,7 +120,7 @@ int main(void)
 		}
 		
 		// Sleep Time倒计时到
-		if(SleepTime_Setting == Time_Sleep)    
+		if(Time_Sleep >= SleepTime_Setting)    
 		{
 			flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换
 			setSandby();
@@ -437,6 +429,7 @@ static void MX_TIM3_Init(void)
   {
     Error_Handler();
   }
+	HAL_TIM_Base_Stop_IT(&htim3);         // 关闭定时器TIM3中断
 }
 
 /* TIM9 init function */
