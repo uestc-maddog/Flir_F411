@@ -1597,15 +1597,9 @@ void display_sleep_charging(Quan_baterry value)
 	if(value == Baterry_full)
 	{
 		display_charging(Baterry_high);
-<<<<<<< HEAD
 		HAL_Delay(400);
 		display_charging(Baterry_middle);
 		HAL_Delay(400);
-=======
-		HAL_Delay(600);
-		display_charging(Baterry_middle);
-		HAL_Delay(600);
->>>>>>> origin/master
 	}
 	else if(value == Baterry_empty)
 	{
