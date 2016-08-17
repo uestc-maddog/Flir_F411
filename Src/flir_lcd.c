@@ -418,10 +418,10 @@ bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 		// use DMA to display a new frame
 		/* Enable the TIM Update interrupt */
 		HAL_TIM_Base_Stop_IT(&htim2);
-		HAL_TIM_Base_Stop_IT(&htim3);
+//		HAL_TIM_Base_Stop_IT(&htim3);
 		HAL_SPI_Transmit_DMA(&LCD_SPI_PORT, (uint8_t*)rowBuf, sizeof(rowBuf));
 		HAL_TIM_Base_Start_IT(&htim2);
-		HAL_TIM_Base_Start_IT(&htim3);
+//		HAL_TIM_Base_Start_IT(&htim3);
 		
 		// return true
 		return true;
