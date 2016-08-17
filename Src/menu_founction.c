@@ -239,14 +239,14 @@ void set_reticle(void)
 						if(Hor>18)
 							Hor=0;
 						flir_conf.flir_sys_Reticle[0]=Hor*4-36;
-						Save_Parameter();                            // 保存8个系统参数到FLASH
+			//			Save_Parameter();                            // 保存8个系统参数到FLASH
 					break;
 					case reticle_Ver:
 						Ver++;
 						if(Ver>18)
 							Ver=0;
 						flir_conf.flir_sys_Reticle[1]=Ver*6-54;
-						Save_Parameter();                            // 保存8个系统参数到FLASH
+				//		Save_Parameter();                            // 保存8个系统参数到FLASH
 					break;
 					case reticle_back:
 						timer=4000;

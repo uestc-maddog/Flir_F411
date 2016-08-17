@@ -1562,7 +1562,7 @@ void Addbaterry_menu(Baterrymode mode,Quan_baterry value)
 		if(value == Baterry_full)
 		{
 			if(mk > 15)
-			display_charging(Baterry_high);
+			display_normal_baterry(Baterry_high);
 			else
 			display_normal_baterry(Baterry_middle);		
 		}

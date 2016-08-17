@@ -549,6 +549,7 @@ void Menu_Display(void)
 						break;
 					case (int)Reset:
 						sysConf_Reset();
+						Save_Parameter();  
 						display_menu(Menu_Value);
 						timer = 200;                          // timer=200时，退出菜单界面
 						break;
