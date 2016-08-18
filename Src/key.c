@@ -226,14 +226,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			flir_conf.file_sys_chargingMode = normal; 
 			Charge_Flag = 0;
 		}
-//		if(sleep_sta == Sleep_disable)u
-//		{
-//			flir_conf.file_sys_chargingMode = charging;
-//		}
-//		else
-//		{
-//			// restart    ...
-//		}
 	}
 }
  /********************************************************************************************************

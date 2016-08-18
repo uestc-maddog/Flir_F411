@@ -106,6 +106,7 @@ Quan_baterry Get_Elec(void)
 	else  																
 	{
 		low_power = true;
+		flir_conf.file_sys_LowPower = Is_LowPower;        // ×´Ì¬ÇÐ»»
 		setSandby();
 	}
 }
